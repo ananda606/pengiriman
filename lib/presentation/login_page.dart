@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pengiriman/domain/api/user_api.dart';
 import 'package:pengiriman/domain/models/user_model.dart';
 import 'package:pengiriman/common/constants.dart';
+import 'package:pengiriman/presentation/delivery_page.dart';
 import 'package:pengiriman/presentation/homepage.dart';
 
 class LoginPage extends StatefulWidget {
@@ -139,13 +140,12 @@ class _LoginPageState extends State<LoginPage> {
                       return ElevatedButton(
                         child: Text('Login'),
                         onPressed: () {
-                          if (user == null) {
-                          } else {
+                          
                             Navigator.pushNamed(
                               context,
                               Homepage.routeName,
                             );
-                          }
+                          
                         },
                       );
                     }
@@ -157,28 +157,31 @@ class _LoginPageState extends State<LoginPage> {
                       );
                     } else if (snapshot.hasData) {
                       return ElevatedButton(
-                      
                         child: Text('Login'),
                         onPressed: () {
-                          if (user == null) {
-                          } else {
+                        
                             Navigator.pushNamed(context, Homepage.routeName);
-                          }
+                          
                         },
                       );
                     } else {
                       return ElevatedButton(
                         child: const Text('Login'),
                         onPressed: () {
-                          if (user == null) {
-                          } else {
+                          
                             Navigator.pushNamed(context, Homepage.routeName);
-                          }
+                          
                         },
                       );
                     }
                   }),
             ),
+            ElevatedButton(
+              child: Text('delivery page'),
+              onPressed: () {
+                Navigator.pushNamed(context, DeliveryPage.routeName);
+              },
+            )
           ],
         ),
       ),

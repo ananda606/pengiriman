@@ -6,17 +6,17 @@ import 'package:pengiriman/widgets/map_arguments.dart';
 import 'dart:math';
 import 'package:url_launcher/url_launcher.dart';
 
-class GoogleMaps extends StatefulWidget {
-  static const routeName = '/google_map';
+class DeliveryMaps extends StatefulWidget {
+  static const routeName = '/delivery_map';
   // int id;
   // MapArguments mapArguments;
   double latDes, lngDes, latLoc, lngLoc;
-  GoogleMaps(this.latDes, this.lngDes, this.latLoc, this.lngLoc);
+  DeliveryMaps(this.latDes, this.lngDes, this.latLoc, this.lngLoc);
   @override
-  _GoogleMapsState createState() => _GoogleMapsState();
+  _DeliveryMapsState createState() => _DeliveryMapsState();
 }
 
-class _GoogleMapsState extends State<GoogleMaps> {
+class _DeliveryMapsState extends State<DeliveryMaps> {
   GoogleMapController? mapController; //contrller for Google map
   PolylinePoints polylinePoints = PolylinePoints();
   //late MapArguments mapArguments = widget.mapArguments;
@@ -147,39 +147,48 @@ class _GoogleMapsState extends State<GoogleMaps> {
               child: Card(
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    
-                      child: Text(
-                        "total jarak: " + distance.toStringAsFixed(2) + " KM",
-                      )),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    child: Row(
-                      children: [
-                        Icon(Icons.timer_sharp),
-                        Text(" "+(distance / 80).toStringAsFixed(2)+"jam"),
-                      ],
-                    ),
+                Container(
+                    padding: EdgeInsets.all(20),
+                    child: Text(
+                      "total jarak: " + distance.toStringAsFixed(2) + " KM",
+                    )),
+                Container(
+                  child: Row(
+                    children: [
+                      Icon(Icons.timer_sharp),
+                      Text((distance / 80).toStringAsFixed(2)),
+                    ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    child: Row(
-                      children: [
-                        Icon(Icons.monetization_on),
-                        Text(" "+(distance*2000).toStringAsFixed(2)),
-                      ],
-                    ),
+                Container(
+                  child: Row(
+                    children: [
+                      Icon(Icons.monetization_on),
+                      Text((distance*2000).toStringAsFixed(2)),
+                    ],
                   ),
                 )
               ],
             ),
           ))),
-        ]));
+      Positioned(
+        bottom: 10,
+        left: 10,
+        child: Container(
+          decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.blue),
+          child: Center(
+              child: IconButton(
+            onPressed: () async {
+              await launchUrl(Uri.parse(
+                  'google.navigation:q= ${widget.latDes}, ${widget.lngDes}'));
+              // await launchUrl(Uri.parse(
+              //     'google.navigation:q=${widget.lat}, ${widget.lng}AIzaSyBjKu1K9-Dwi1eM59G6hVkm16sEMadwz1M'));
+            },
+            icon: Icon(Icons.navigation_outlined),
+            color: Colors.white,
+          )),
+        ),
+      )
+    ]));
   }
 }

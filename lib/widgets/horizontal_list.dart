@@ -5,7 +5,7 @@ import 'package:pengiriman/domain/models/parcel_model.dart';
 import 'package:pengiriman/domain/models/user_model.dart';
 import 'package:pengiriman/presentation/delivery_request.dart';
 import 'package:pengiriman/presentation/gmaps.dart';
-import 'package:pengiriman/presentation/payment_page.dart';
+import 'package:pengiriman/presentation/delivery_status.dart';
 import 'package:pengiriman/widgets/parcel_list.dart';
 
 class HorizontalList extends StatefulWidget {
@@ -68,7 +68,7 @@ class _HorizontalListState extends State<HorizontalList> {
                       //   context,
                       //   ParcelList.routeName,
                       // );
-                       Navigator.pushNamed(context, PaymentPage.routeName);
+                       Navigator.pushNamed(context, DeliveryStatus.routeName);
                     }),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

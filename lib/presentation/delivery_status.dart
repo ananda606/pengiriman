@@ -6,15 +6,15 @@ import 'package:pengiriman/presentation/gmaps.dart';
 import 'package:pengiriman/widgets/map_arguments.dart';
 import 'package:pengiriman/widgets/success_alert.dart';
 
-class PaymentPage extends StatefulWidget {
+class DeliveryStatus extends StatefulWidget {
   static const routeName = '/payment';
-  PaymentPage({super.key});
+  DeliveryStatus({super.key});
 
   @override
-  State<PaymentPage> createState() => _PaymentPageState();
+  State<DeliveryStatus> createState() => _DeliveryStatusState();
 }
 
-class _PaymentPageState extends State<PaymentPage> {
+class _DeliveryStatusState extends State<DeliveryStatus> {
   bool _isTrue = false;
   ParcelApi parcelApi = ParcelApi();
   @override
