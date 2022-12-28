@@ -9,6 +9,7 @@ import 'package:pengiriman/presentation/login_page.dart';
 import 'package:pengiriman/presentation/payment_page.dart';
 import 'package:pengiriman/presentation/register_page.dart';
 import 'package:pengiriman/presentation/homepage.dart';
+import 'package:pengiriman/widgets/map_arguments.dart';
 
 void main() {
   runApp(const MyApp());
@@ -43,13 +44,8 @@ class MyApp extends StatelessWidget {
             final lngDes = settings.arguments as double;
             final latLoc = settings.arguments as double;
             final lngLoc = settings.arguments as double;
-            return MaterialPageRoute(
-                builder: (_) => GoogleMaps(
-                      latDes: latDes,
-                      lngDes: lngDes,
-                      latLoc: latLoc,
-                      lngLoc: lngLoc,
-                    ));
+            // final mapArguments = settings.arguments as MapArguments;
+            return MaterialPageRoute(builder: (_) => GoogleMaps(latDes, lngDes, latLoc, lngLoc));
           case LoginPage.routeName:
             return MaterialPageRoute(builder: (_) => LoginPage());
           case RegisterPage.routeName:

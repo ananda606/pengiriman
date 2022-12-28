@@ -2,17 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pengiriman/common/constants.dart';
+import 'package:pengiriman/widgets/map_arguments.dart';
 import 'dart:math';
 import 'package:url_launcher/url_launcher.dart';
 
 class GoogleMaps extends StatefulWidget {
   static const routeName = '/google_map';
-  double? latDes, lngDes, latLoc, lngLoc;
-  GoogleMaps(
-      {required this.latDes,
-      required this.lngDes,
-      required this.latLoc,
-      required this.lngLoc});
+  // int id;
+  // MapArguments mapArguments;
+   double latDes, lngDes, latLoc, lngLoc;
+  GoogleMaps(this.latDes,this.lngDes,this.latLoc,this.lngLoc);
   @override
   _GoogleMapsState createState() => _GoogleMapsState();
 }
@@ -20,14 +19,14 @@ class GoogleMaps extends StatefulWidget {
 class _GoogleMapsState extends State<GoogleMaps> {
   GoogleMapController? mapController; //contrller for Google map
   PolylinePoints polylinePoints = PolylinePoints();
+  //late MapArguments mapArguments = widget.mapArguments;
 
-  //String googleAPiKey = "AIzaSyBjKu1K9-Dwi1eM59G6hVkm16sEMadwz1M";
 
   Set<Marker> markers = Set(); //markers for google map
   Map<PolylineId, Polyline> polylines = {}; //polylines to show direction
-
-  LatLng startLocation = LatLng(-6.3098, 106.7592);
-  LatLng endLocation = LatLng(-6.3606, 106.8272);
+ 
+  // LatLng startLocation = LatLng(-6.3606, 106.7592);
+  // LatLng endLocation = LatLng(-6.3606, 106.8272);
 
   double distance = 0.0;
 
@@ -35,8 +34,8 @@ class _GoogleMapsState extends State<GoogleMaps> {
   void initState() {
     markers.add(Marker(
       //add start location marker
-      markerId: MarkerId(startLocation.toString()),
-      position: startLocation, //position of marker
+      markerId: MarkerId(LatLng(widget.latLoc,widget.lngLoc).toString()),
+      position: LatLng(widget.latLoc,widget.lngLoc), //position of marker
       infoWindow: InfoWindow(
         //popup info
         title: 'Starting Point ',
@@ -47,8 +46,8 @@ class _GoogleMapsState extends State<GoogleMaps> {
 
     markers.add(Marker(
       //add distination location marker
-      markerId: MarkerId(endLocation.toString()),
-      position: endLocation, //position of marker
+      markerId: MarkerId(LatLng(widget.latDes,widget.lngDes).toString()),
+      position: LatLng(widget.latDes,widget.lngDes), //position of marker
       infoWindow: InfoWindow(
         //popup info
         title: 'Destination Point ',
@@ -67,8 +66,8 @@ class _GoogleMapsState extends State<GoogleMaps> {
 
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       google_api_key,
-      PointLatLng(startLocation.latitude, startLocation.longitude),
-      PointLatLng(endLocation.latitude, endLocation.longitude),
+      PointLatLng(widget.latLoc,widget.lngLoc),
+      PointLatLng(widget.latDes,widget.lngDes),
       travelMode: TravelMode.driving,
     );
 
@@ -121,18 +120,16 @@ class _GoogleMapsState extends State<GoogleMaps> {
 
   @override
   Widget build(BuildContext context) {
+    // print('latDes in maparguments ${widget.mapArguments.latDes}');
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Calculate Distance in Google Map"),
-          backgroundColor: Colors.deepPurpleAccent,
-        ),
+        
         body: Stack(children: [
           GoogleMap(
             //Map widget from google_maps_flutter package
             zoomGesturesEnabled: true, //enable Zoom in, out on map
             initialCameraPosition: CameraPosition(
               //innital position in map
-              target: startLocation, //initial position
+              target: LatLng(widget.latLoc,widget.lngLoc), //initial position
               zoom: 14.0, //initial zoom level
             ),
             markers: markers, //markers to show on map
@@ -146,18 +143,29 @@ class _GoogleMapsState extends State<GoogleMaps> {
             },
           ),
           Positioned(
-              bottom: 200,
-              left: 50,
+              bottom: 100,
+              left: 90
+              ,
               child: Container(
                   child: Card(
-                child: Container(
-                    padding: EdgeInsets.all(20),
-                    child: Text(
-                        "Total Distance: " +
-                            distance.toStringAsFixed(2) +
-                            " KM",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold))),
+                child: Column(
+                  children: [
+                    Container(
+                      
+                        padding: EdgeInsets.all(20),
+                        child: Text(
+                            "total jarak: " +
+                                distance.toStringAsFixed(2) +
+                                " KM",
+                            )),
+                                Container(child: Row(
+                                  children: [
+                                    Icon(Icons.timer_sharp),
+                                    Text((distance/80).toStringAsFixed(2)),
+                                  ],
+                                ),)
+                  ],
+                ),
               ))),
           Positioned(
             bottom: 10,
@@ -169,7 +177,7 @@ class _GoogleMapsState extends State<GoogleMaps> {
                   child: IconButton(
                 onPressed: () async {
                   await launchUrl(
-                      Uri.parse('google.navigation:q= -6.3606, 106.8272'));
+                      Uri.parse('google.navigation:q= ${widget.latDes}, ${widget.lngDes}'));
                   // await launchUrl(Uri.parse(
                   //     'google.navigation:q=${widget.lat}, ${widget.lng}AIzaSyBjKu1K9-Dwi1eM59G6hVkm16sEMadwz1M'));
                 },

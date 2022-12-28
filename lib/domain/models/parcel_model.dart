@@ -4,11 +4,11 @@ class ParcelModel {
   int? idParcel;
   String parcelName;
   String parcelDestination;
-  double? latDes;
-  double? lngDes;
+  double latDes;
+  double lngDes;
   String parcelLocation;
-  double? latLoc;
-  double? lngLoc;
+  double latLoc;
+  double lngLoc;
   ParcelModel({
     this.idParcel,
     required this.parcelName,

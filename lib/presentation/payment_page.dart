@@ -3,6 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pengiriman/domain/api/parcel_api.dart';
 import 'package:pengiriman/domain/models/parcel_model.dart';
 import 'package:pengiriman/presentation/gmaps.dart';
+import 'package:pengiriman/widgets/map_arguments.dart';
 import 'package:pengiriman/widgets/success_alert.dart';
 
 class PaymentPage extends StatefulWidget {
@@ -44,7 +45,10 @@ class _PaymentPageState extends State<PaymentPage> {
                         backgroundColor: Colors.transparent,
                       ),
                       onPressed: () {
-                      Navigator.pushNamed(context, GoogleMaps.routeName, arguments:parcels[index].idParcel );
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) =>
+                                GoogleMaps(parcels[index].latDes, parcels[index].lngDes, parcels[index].latLoc, parcels[index].lngLoc)));
+
                         // showDialog(
                         //     context: context,
                         //     builder: (context) => SuccessAlert());
