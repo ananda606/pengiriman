@@ -2,7 +2,7 @@ const express= require('express');
 const cors= require('cors');
 const app= express();
 const {db}= require('./model/dbConnection');
-const serverPort= 3001;
+const serverPort= 8080;
 app.use(cors());
 app.use(express.urlencoded({ extended: true}));
 
@@ -38,9 +38,9 @@ var paths=req.files[0].path;
 res.send(paths);
 
 });
-//read product
-app.get('/api/readProduct',(req,res)=>{
-    const sqlQuery="SELECT * FROM product";
+//read parcel
+app.get('/api/readParcel',(req,res)=>{
+    const sqlQuery="SELECT * FROM parcel";
  
     db.query(sqlQuery,(err,result)=>{
         if(err){
@@ -55,70 +55,36 @@ app.get('/api/readProduct',(req,res)=>{
         }   
     });
 });
-app.get('/api/readPopularProduct/',(req,res)=>{
-    
-    const sqlQuery="SELECT * FROM product ORDER BY productRating DESC";
-    db.query(sqlQuery,(err,result)=>{
-        if(err){
-            console.log(err);
-        }
-        else{
-            res.send(result);
-        }
-    });
-});
-app.get('/api/readPriceProduct/',(req,res)=>{
-    
-    const sqlQuery="SELECT * FROM product ORDER BY productPrice DESC";
-    db.query(sqlQuery,(err,result)=>{
-        if(err){
-            console.log(err);
-        }
-        else{
-            res.send(result);
-        }
-    });
-});
-//read product by id
-app.get('/api/readProductById/:id',(req,res)=>{
-    const id=req.params.id;
-    
-    const sqlQuery="SELECT * FROM product WHERE id = ?";
-    db.query(sqlQuery, id, (err,result)=>{
-        if(err){
-            console.log(err);
-        }else{
-            res.send(result);
-            console.log(result);
-        }   
-    });
-});
-//read product by name
-app.get('/api/readProductByName/:productName',(req,res)=>{
-  
-    const productName= req.params.productName
-    const sqlQuery="SELECT * FROM product WHERE productName = ?";
-    db.query(sqlQuery, productName, (err,result)=>{
-        if(err){
-            console.log(err);
-        }else{
-            res.send(result);
-            console.log(result);
-        }   
-    });
-});
-//create product
-app.post('/api/createProduct', async (req,res)=>{
-    const id= req.body.id;
-    const productName= req.body.productName;
-    const productLocation=req.body.productLocation;
-    const productDescription= req.body.productDescription;
-    const productImageUrl= req.body.productImageUrl;
-    const producRating= req.body.producRating;
-    const productPrice=req.body.productPrice;
-    const sqlQuery= "INSERT INTO product (id, productName,productLocation, productDescription, productImageUrl,productRating,productPrice) VALUE (?, ?, ?, ? , ?, ?, ?)";
 
-    db.query(sqlQuery, [id,productName,productLocation, productDescription, productImageUrl,producRating,productPrice], (err,result)=>{
+//read parcel by id
+app.get('/api/readParcelById/:idParcel',(req,res)=>{
+    const idParcel=req.params.idParcel;
+    
+    const sqlQuery="SELECT * FROM parcel WHERE idParcel = ?";
+    db.query(sqlQuery, idParcel, (err,result)=>{
+        if(err){
+            console.log(err);
+        }else{
+            res.send(result);
+            console.log(result);
+        }   
+    });
+});
+
+//create parcel
+app.post('/api/createParcel', async (req,res)=>{
+    
+    const parcelName= req.body.parcelName;
+    const parcelDestination= req.body.parcelDestination;
+    const latDes=req.body.latDes;
+    const lngDes=req.body.lngDes;
+    const parcelLocation=req.body.parcelLocation;
+    const latLoc=req.body.latLoc;
+    const lngLoc=req.body.lngLoc;
+
+    const sqlQuery= "INSERT INTO parcel ( parcelName,parcelDestination, latDes, lngDes,parcelLocation,latLoc,lngLoc) VALUE ( ?, ?, ? , ?, ?, ?,?)";
+
+    db.query(sqlQuery, [parcelName,parcelDestination, latDes,lngDes, parcelLocation,latLoc,lngLoc], (err,result)=>{
         if(err){
             console.log(err);
      
@@ -133,17 +99,19 @@ app.post('/api/createProduct', async (req,res)=>{
     });
     
 });
-//update product
-app.put('/api/updateProductById/:id/',async(req,res)=>{
-    const idproduct = req.params.id;
-    const productName= req.body.productName;
-    const productLocation=req.body.productLocation;
-    const productDescription= req.body.productDescription;
-    const productImageUrl= req.body.productImageUrl;
-    const productPrice= req.body.productPrice;
-    const sqlQuery= "UPDATE product SET productName = ? , productLocation = ? , productDescription = ?, productImageUrl = ?, productPrice=?  WHERE id = ?";
+//update parcel
+app.put('/api/updateParcelById/:idParcel',async(req,res)=>{
+    const idParcel= req.body.idParcel;
+    const parcelName= req.body.parcelName;
+    const parcelDestination= req.body.parcelDestination;
+    const latDes=req.body.latDes;
+    const lngDes=req.body.lngDes;
+    const parcelLocation=req.body.parcelLocation;
+    const latLoc=req.body.latLoc;
+    const lngLoc=req.body.lngLoc;
+    const sqlQuery= "UPDATE parcel SET parcelName = ? ,parcelDestination=?,latDes=?,lngDes=?, parcelLocation = ? , latLoc=?,lngLoc=?  WHERE idParcel = ?";
 
-    db.query(sqlQuery, [productName, productLocation,productDescription,productImageUrl,productPrice,idproduct], (err,result)=>{
+    db.query(sqlQuery, [parcelName, parcelDestination,latDes,lngDes,parcelLocation,latLoc,lngLoc,idParcel], (err,result)=>{
         if(err){
             console.log(err);
      
@@ -155,12 +123,12 @@ app.put('/api/updateProductById/:id/',async(req,res)=>{
     });
    });
 //delete
-app.delete('/api/deleteProduct/:id',(req,res)=>{
-    const idproduct = req.params.id;
+app.delete('/api/deleteParcel/:idParcel',(req,res)=>{
+    const idParcel = req.params.idParcel;
 
-    const sqlQuery= "DELETE FROM product WHERE id = ? ";
+    const sqlQuery= "DELETE FROM parcel WHERE idParcel = ? ";
 
-    db.query(sqlQuery, idproduct, (err,result)=>{
+    db.query(sqlQuery, idParcel, (err,result)=>{
         if(err){
             console.log(err);
      
@@ -185,7 +153,7 @@ app.get('/api/readUser',(req,res)=>{
     });
 });
 
-app.get('/api/readUserById/:id',(req,res)=>{
+app.get('/api/readUserById/:idUser',(req,res)=>{
     const iduser= req.params.iduser;
     const sqlQuery= "SELECT * FROM user WHERE iduser = ?";
     db.query(sqlQuery, iduser, (err,result)=>{
@@ -246,12 +214,12 @@ app.post('/api/createUser',(req,res)=>{
     const username= req.body.username;
     const password= req.body.password;
     const email= req.body.email;
-    const userAddress= req.body.userAddress;
-    const userPhoneNumber= req.body.userPhoneNumber;
+    const address= req.body.address;
+ 
   
-    const sqlQuery= "INSERT INTO user (email, password, username, userAddress, userPhoneNumber) VALUE (?, ?, ?, ?, ? )";
-if(username!=null&&password!=null&&email!=null&&userAddress!=null&&userPhoneNumber!=null){
-    db.query(sqlQuery, [email, password,username, userAddress,userPhoneNumber], (err,result)=>{
+    const sqlQuery= "INSERT INTO user (email, password, username, address) VALUE (?, ?, ?, ? )";
+if(username!=null&&password!=null&&email!=null&&address!=null){
+    db.query(sqlQuery, [email, password,username, address], (err,result)=>{
         if(err){
             console.log(err);
      

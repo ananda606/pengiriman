@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pengiriman/widgets/success_alert.dart';
 
 class PaymentPage extends StatefulWidget {
   static const routeName = '/payment';
@@ -24,8 +25,10 @@ class _PaymentPageState extends State<PaymentPage> {
                   backgroundColor: Colors.transparent,
                 ),
                 onPressed: () {
+                  showDialog(
+                      context: context, builder: (context) => SuccessAlert());
                   setState(() {
-                    _isTrue =!_isTrue;
+                    _isTrue = !_isTrue;
                   });
                 },
                 child: ListTile(

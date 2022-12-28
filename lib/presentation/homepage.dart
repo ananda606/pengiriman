@@ -59,10 +59,12 @@ class _HomepageState extends State<Homepage> {
                 width: 80,
                 height: 50,
                 child: TextField(
+                
                   enabled: true,
                   cursorColor: Colors.blue,
                   controller: _trackNumber,
                   decoration: const InputDecoration(
+                    prefixIcon: Icon(Icons.search),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
