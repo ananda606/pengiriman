@@ -143,7 +143,7 @@ class _LoginPageState extends State<LoginPage> {
                           } else {
                             Navigator.pushNamed(
                               context,
-                              '/home_product',
+                              Homepage.routeName,
                             );
                           }
                         },
@@ -157,6 +157,7 @@ class _LoginPageState extends State<LoginPage> {
                       );
                     } else if (snapshot.hasData) {
                       return ElevatedButton(
+                      
                         child: Text('Login'),
                         onPressed: () {
                           if (user == null) {
@@ -171,7 +172,7 @@ class _LoginPageState extends State<LoginPage> {
                         onPressed: () {
                           if (user == null) {
                           } else {
-                            Navigator.pushNamed(context, '/home_product');
+                            Navigator.pushNamed(context, Homepage.routeName);
                           }
                         },
                       );

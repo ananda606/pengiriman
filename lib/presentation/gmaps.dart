@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:pengiriman/common/constants.dart';
 import 'dart:math';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -15,7 +16,7 @@ class _GoogleMapsState extends State<GoogleMaps> {
   GoogleMapController? mapController; //contrller for Google map
   PolylinePoints polylinePoints = PolylinePoints();
 
-  String googleAPiKey = "AIzaSyBjKu1K9-Dwi1eM59G6hVkm16sEMadwz1M";
+  //String googleAPiKey = "AIzaSyBjKu1K9-Dwi1eM59G6hVkm16sEMadwz1M";
 
   Set<Marker> markers = Set(); //markers for google map
   Map<PolylineId, Polyline> polylines = {}; //polylines to show direction
@@ -60,7 +61,7 @@ class _GoogleMapsState extends State<GoogleMaps> {
     List<LatLng> polylineCoordinates = [];
 
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-      googleAPiKey,
+      google_api_key,
       PointLatLng(startLocation.latitude, startLocation.longitude),
       PointLatLng(endLocation.latitude, endLocation.longitude),
       travelMode: TravelMode.driving,

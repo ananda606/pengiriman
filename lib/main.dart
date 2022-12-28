@@ -8,6 +8,7 @@ import 'package:pengiriman/presentation/delivery_request.dart';
 import 'package:pengiriman/presentation/gmaps.dart';
 import 'package:pengiriman/presentation/login_page.dart';
 import 'package:pengiriman/presentation/maps.dart';
+import 'package:pengiriman/presentation/payment_page.dart';
 import 'package:pengiriman/presentation/register_page.dart';
 import 'package:pengiriman/presentation/homepage.dart';
 
@@ -30,13 +31,15 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: kRichBlack,
         textTheme: kTextTheme,
       ),
-      home: DeliveryRequest(),
+      home: Homepage(),
       debugShowCheckedModeBanner: false,
       navigatorObservers: [routeObserver],
       onGenerateRoute: (RouteSettings settings) {
         switch (settings.name) {
               case DeliveryRequest.routeName:
             return MaterialPageRoute(builder: (_) => DeliveryRequest());
+              case PaymentPage.routeName:
+            return MaterialPageRoute(builder: (_) => PaymentPage());
           case Homepage.routeName:
             return MaterialPageRoute(builder: (_) => Homepage());
           case GoogleMaps.routeName:

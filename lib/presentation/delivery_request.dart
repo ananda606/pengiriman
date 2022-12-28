@@ -111,6 +111,7 @@ class _DeliveryRequestState extends State<DeliveryRequest> {
               width: 80,
               height: 50,
               child: TextField(
+                keyboardType: TextInputType.number,
                 enabled: true,
                 cursorColor: Colors.blue,
                 controller: _parcelLatDesController,
