@@ -6,13 +6,18 @@ import 'dart:math';
 import 'package:url_launcher/url_launcher.dart';
 
 class GoogleMaps extends StatefulWidget {
-   static const routeName = '/google_map';
+  static const routeName = '/google_map';
+  double? latDes, lngDes, latLoc, lngLoc;
+  GoogleMaps(
+      {required this.latDes,
+      required this.lngDes,
+      required this.latLoc,
+      required this.lngLoc});
   @override
   _GoogleMapsState createState() => _GoogleMapsState();
 }
 
 class _GoogleMapsState extends State<GoogleMaps> {
- 
   GoogleMapController? mapController; //contrller for Google map
   PolylinePoints polylinePoints = PolylinePoints();
 

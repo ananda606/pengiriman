@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pengiriman/domain/api/parcel_api.dart';
 import 'package:pengiriman/domain/models/parcel_model.dart';
+import 'package:pengiriman/presentation/homepage.dart';
+import 'package:pengiriman/widgets/success_alert.dart';
 
 class DeliveryRequest extends StatefulWidget {
   static const routeName = '/delivery';
@@ -233,8 +235,12 @@ class _DeliveryRequestState extends State<DeliveryRequest> {
                         latLoc: latLoc,
                         lngLoc: lngLoc);
                     _parcelApi.createParcel(parcelModel);
+                     showDialog(
+                      context: context, builder: (context) => SuccessAlert());
+          
+          
                     print(parcelModel);
-                    // Navigator.pushNamed(context, LoginPage.ROUTE_NAME);
+                    
                   } else {
                     const AlertDialog(
                       title: Text('data tidak lengkap'),

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pengiriman/common/constants.dart';
+import 'package:pengiriman/domain/api/parcel_api.dart';
+import 'package:pengiriman/domain/models/parcel_model.dart';
+import 'package:pengiriman/presentation/delivery_detail.dart';
 import 'package:pengiriman/widgets/horizontal_list.dart';
 
 class Homepage extends StatefulWidget {
@@ -12,22 +15,25 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   TextEditingController _trackNumber = TextEditingController();
+  ParcelApi parcelApi = ParcelApi();
   @override
   void initState() {
     super.initState();
+    parcelApi = ParcelApi();
     _trackNumber = TextEditingController();
   }
 
   @override
   void dispose() {
     _trackNumber.dispose();
+
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     appBar: AppBar(
+      appBar: AppBar(
         title: Text('pengiriman'),
       ),
       body: SafeArea(
@@ -59,7 +65,6 @@ class _HomepageState extends State<Homepage> {
                 width: 80,
                 height: 50,
                 child: TextField(
-                
                   enabled: true,
                   cursorColor: Colors.blue,
                   controller: _trackNumber,
@@ -87,6 +92,7 @@ class _HomepageState extends State<Homepage> {
               height: 20,
             ),
             HorizontalList(),
+           
           ],
         ),
       )),

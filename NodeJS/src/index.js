@@ -73,7 +73,7 @@ app.get('/api/readParcelById/:idParcel',(req,res)=>{
 
 //create parcel
 app.post('/api/createParcel', async (req,res)=>{
-    
+    const idParcel=req.body.idParcel;
     const parcelName= req.body.parcelName;
     const parcelDestination= req.body.parcelDestination;
     const latDes=req.body.latDes;
@@ -82,9 +82,9 @@ app.post('/api/createParcel', async (req,res)=>{
     const latLoc=req.body.latLoc;
     const lngLoc=req.body.lngLoc;
 
-    const sqlQuery= "INSERT INTO parcel ( parcelName,parcelDestination, latDes, lngDes,parcelLocation,latLoc,lngLoc) VALUE ( ?, ?, ? , ?, ?, ?,?)";
+    const sqlQuery= "INSERT INTO parcel ( idParcel, parcelName,parcelDestination, latDes, lngDes,parcelLocation,latLoc,lngLoc) VALUE ( ?, ?, ? , ?, ?, ?, ?, ?)";
 
-    db.query(sqlQuery, [parcelName,parcelDestination, latDes,lngDes, parcelLocation,latLoc,lngLoc], (err,result)=>{
+    db.query(sqlQuery, [idParcel,parcelName,parcelDestination, latDes,lngDes, parcelLocation,latLoc,lngLoc], (err,result)=>{
         if(err){
             console.log(err);
      

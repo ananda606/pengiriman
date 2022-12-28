@@ -1,7 +1,7 @@
 import 'package:http/http.dart';
 import 'package:pengiriman/domain/models/parcel_model.dart';
 class ParcelApi {
-  final String url = "http://10.0.2.2:3001/api";
+  final String url = "http://10.0.2.2:8080/api";
   Client client = Client();
   Future<List<ParcelModel>?> getParcel() async {
     final response = await client.get(Uri.parse("$url/readParcel"));
@@ -20,7 +20,7 @@ class ParcelApi {
     }
   }
   Future<bool> createParcel(ParcelModel data) async {
-    final response = await client.post(Uri.parse("$url/createparcel"),
+    final response = await client.post(Uri.parse("$url/createParcel"),
         body: parcelToJson(data), headers: {"content-type": "application/json"});
     if (response.statusCode == 200) {
       

@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:pengiriman/domain/models/parcel_model.dart';
 import 'package:pengiriman/domain/models/user_model.dart';
 import 'package:pengiriman/domain/api/user_api.dart';
+import 'package:pengiriman/presentation/homepage.dart';
+import 'package:pengiriman/presentation/login_page.dart';
+import 'package:pengiriman/widgets/success_alert.dart';
 // import 'package:paktani_mobile/domain/api/user_api.dart';
 // import 'package:paktani_mobile/domain/model/user_model.dart';
 // import 'package:paktani_mobile/presentation/pages/login_page.dart';
@@ -22,7 +25,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _userPhoneNumberController =
       TextEditingController();
   bool _isObscure = true;
-  
+
   final UserApi _userApi = UserApi();
   late UserModel userModel;
   @override
@@ -110,7 +113,6 @@ class _RegisterPageState extends State<RegisterPage> {
                 width: 80,
                 height: 50,
                 child: TextField(
-                 
                   cursorColor: Colors.blue,
                   controller: _usernameController,
                   decoration: InputDecoration(
@@ -129,7 +131,6 @@ class _RegisterPageState extends State<RegisterPage> {
                 width: 80,
                 height: 50,
                 child: TextField(
-                 
                   cursorColor: Colors.blue,
                   controller: _userAddressController,
                   decoration: InputDecoration(
@@ -148,7 +149,6 @@ class _RegisterPageState extends State<RegisterPage> {
                 width: 80,
                 height: 50,
                 child: TextField(
-                  
                   cursorColor: Colors.blue,
                   controller: _userPhoneNumberController,
                   decoration: InputDecoration(
@@ -196,15 +196,13 @@ class _RegisterPageState extends State<RegisterPage> {
                         _userAddressController.text.isNotEmpty &&
                         _userPhoneNumberController.text.isNotEmpty) {
                       UserModel userModel = UserModel(
-                        email: email,
-                        username: username,
-                        password: password,
-                       address: userAddress
-                      );
+                          email: email,
+                          username: username,
+                          password: password,
+                          address: userAddress);
                       _userApi.createUser(userModel);
-
-                      print(userModel);
-                     // Navigator.pushNamed(context, LoginPage.ROUTE_NAME);
+                                print(userModel);
+                     Navigator.pushNamed(context, LoginPage.routeName);
                     } else {
                       const AlertDialog(
                         title: Text('data tidak lengkap'),
