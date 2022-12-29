@@ -8,8 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class DeliveryMaps extends StatefulWidget {
   static const routeName = '/delivery_map';
-  // int id;
-  // MapArguments mapArguments;
+  
   double latDes, lngDes, latLoc, lngLoc;
   DeliveryMaps(this.latDes, this.lngDes, this.latLoc, this.lngLoc);
   @override
@@ -23,9 +22,6 @@ class _DeliveryMapsState extends State<DeliveryMaps> {
 
   Set<Marker> markers = Set(); //markers for google map
   Map<PolylineId, Polyline> polylines = {}; //polylines to show direction
-
-  // LatLng startLocation = LatLng(-6.3606, 106.7592);
-  // LatLng endLocation = LatLng(-6.3606, 106.8272);
 
   double distance = 0.0;
 
@@ -184,7 +180,7 @@ class _DeliveryMapsState extends State<DeliveryMaps> {
               // await launchUrl(Uri.parse(
               //     'google.navigation:q=${widget.lat}, ${widget.lng}AIzaSyBjKu1K9-Dwi1eM59G6hVkm16sEMadwz1M'));
             },
-            icon: Icon(Icons.navigation_outlined),
+            icon: Icon(Icons.navigation_rounded),
             color: Colors.white,
           )),
         ),

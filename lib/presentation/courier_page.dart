@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pengiriman/domain/api/parcel_api.dart';
 import 'package:pengiriman/domain/models/parcel_model.dart';
+import 'package:pengiriman/presentation/delivery_maps.dart';
 import 'package:pengiriman/presentation/gmaps.dart';
 import 'package:pengiriman/widgets/map_arguments.dart';
 import 'package:pengiriman/widgets/success_alert.dart';
 
-class DeliveryStatus extends StatefulWidget {
-  static const routeName = '/delivery_status';
-  DeliveryStatus({super.key});
+class CourierPage extends StatefulWidget {
+  static const routeName = '/courier';
+  CourierPage({super.key});
 
   @override
-  State<DeliveryStatus> createState() => _DeliveryStatusState();
+  State<CourierPage> createState() => _CourierPageState();
 }
 
-class _DeliveryStatusState extends State<DeliveryStatus> {
+class _CourierPageState extends State<CourierPage> {
   bool _isTrue = false;
   ParcelApi parcelApi = ParcelApi();
   @override
@@ -47,7 +48,7 @@ class _DeliveryStatusState extends State<DeliveryStatus> {
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) =>
-                                GoogleMaps(parcels[index].latDes, parcels[index].lngDes, parcels[index].latLoc, parcels[index].lngLoc)));
+                               DeliveryMaps(parcels[index].latDes, parcels[index].lngDes, parcels[index].latLoc, parcels[index].lngLoc)));
 
                         // showDialog(
                         //     context: context,

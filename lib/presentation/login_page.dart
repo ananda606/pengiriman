@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pengiriman/domain/api/user_api.dart';
 import 'package:pengiriman/domain/models/user_model.dart';
 import 'package:pengiriman/common/constants.dart';
+import 'package:pengiriman/presentation/courier_page.dart';
 import 'package:pengiriman/presentation/delivery_page.dart';
 import 'package:pengiriman/presentation/homepage.dart';
 
@@ -179,7 +180,7 @@ class _LoginPageState extends State<LoginPage> {
             ElevatedButton(
               child: Text('delivery page'),
               onPressed: () {
-                Navigator.pushNamed(context, DeliveryPage.routeName);
+                Navigator.pushNamed(context, CourierPage.routeName);
               },
             )
           ],

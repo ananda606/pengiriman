@@ -3,6 +3,7 @@ import 'package:pengiriman/common/constants.dart';
 import 'package:pengiriman/common/utils.dart';
 import 'package:pengiriman/domain/models/parcel_model.dart';
 import 'package:pengiriman/domain/models/user_model.dart';
+import 'package:pengiriman/presentation/courier_page.dart';
 import 'package:pengiriman/presentation/delivery_maps.dart';
 import 'package:pengiriman/presentation/delivery_page.dart';
 import 'package:pengiriman/presentation/delivery_request.dart';
@@ -39,7 +40,9 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (_) => DeliveryRequest());
           case DeliveryStatus.routeName:
             return MaterialPageRoute(builder: (_) => DeliveryStatus());
-             case DeliveryPage.routeName:
+            case CourierPage.routeName:
+            return MaterialPageRoute(builder: (_) => CourierPage());
+          case DeliveryPage.routeName:
             return MaterialPageRoute(builder: (_) => DeliveryPage());
           case Homepage.routeName:
             return MaterialPageRoute(builder: (_) => Homepage());
@@ -48,15 +51,17 @@ class MyApp extends StatelessWidget {
             final lngDes = settings.arguments as double;
             final latLoc = settings.arguments as double;
             final lngLoc = settings.arguments as double;
-           
-            return MaterialPageRoute(builder: (_) => GoogleMaps(latDes, lngDes, latLoc, lngLoc));
-                  case DeliveryMaps.routeName:
+
+            return MaterialPageRoute(
+                builder: (_) => GoogleMaps(latDes, lngDes, latLoc, lngLoc));
+          case DeliveryMaps.routeName:
             final latDes = settings.arguments as double;
             final lngDes = settings.arguments as double;
             final latLoc = settings.arguments as double;
             final lngLoc = settings.arguments as double;
-           
-            return MaterialPageRoute(builder: (_) => DeliveryMaps(latDes, lngDes, latLoc, lngLoc));
+
+            return MaterialPageRoute(
+                builder: (_) => DeliveryMaps(latDes, lngDes, latLoc, lngLoc));
           case LoginPage.routeName:
             return MaterialPageRoute(builder: (_) => LoginPage());
           case RegisterPage.routeName:
