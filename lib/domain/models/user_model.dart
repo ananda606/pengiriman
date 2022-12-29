@@ -6,6 +6,10 @@ class UserModel {
   String email;
   String address;
   String password;
+
+    
+
+
   UserModel({
     this.idUser,
     required this.username,
